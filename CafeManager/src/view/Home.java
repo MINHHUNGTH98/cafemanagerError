@@ -3,14 +3,18 @@ package view;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
@@ -19,13 +23,17 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 public class Home extends JFrame{
 	public Home() {
+		setTitle("CafeManager");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 795, 378);
+		setBounds(100, 100, 863, 388);
 		this.setLocationRelativeTo(null);
 		JPanel contentPane = new JPanel();
 		contentPane.setBackground(Color.LIGHT_GRAY);
@@ -51,6 +59,8 @@ public class Home extends JFrame{
 		mnStat.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Stat stat = new Stat();
+				stat.setVisible(true);
 			}
 		});
 		menuBar.add(mnStat);
@@ -59,13 +69,15 @@ public class Home extends JFrame{
 		mnStaff.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Staff staff = new Staff();
+				staff.setVisible(true);
 			}
 		});
 		menuBar.add(mnStaff);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(UIManager.getColor("Panel.background"));
-		panel.setBounds(1, 25, 211, 303);
+		panel.setBounds(1, 25, 211, 313);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -135,7 +147,7 @@ public class Home extends JFrame{
 		tfTotal.setText("0");
 		tfTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		tfTotal.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		tfTotal.setBounds(53, 215, 86, 20);
+		tfTotal.setBounds(53, 215, 86, 28);
 		panel.add(tfTotal);
 		tfTotal.setColumns(10);
 		
@@ -145,7 +157,7 @@ public class Home extends JFrame{
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		btnPayment.setBounds(24, 241, 146, 48);
+		btnPayment.setBounds(24, 254, 146, 48);
 		panel.add(btnPayment);
 		
 		JSpinner spCount = new JSpinner();
@@ -153,81 +165,186 @@ public class Home extends JFrame{
 		panel.add(spCount);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(216, 25, 294, 304);
+		panel_1.setBounds(216, 25, 294, 313);
 		contentPane.add(panel_1);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(516, 25, 253, 304);
+		panel_2.setBounds(516, 25, 321, 313);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JButton btnTable1 = new JButton("B\u00E0n 1");
-		btnTable1.setBounds(10, 11, 76, 59);
-		panel_2.add(btnTable1);
+		ImageIcon iconFull; // neu co khach thi doi mau
+		Image imgFull = new ImageIcon(Home.class.getResource("/images/table_full.png")).getImage();
+		iconFull = new ImageIcon(imgFull);
 		
-		JButton btnTable2 = new JButton("B\u00E0n 2");
-		btnTable2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel lblTable = new JLabel("Table");
+		lblTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				lblTable.setIcon(iconFull);
 			}
 		});
-		btnTable2.setBounds(90, 11, 76, 59);
-		panel_2.add(btnTable2);
+		lblTable.setBounds(20, 28, 65, 60);
+		ImageIcon iconEmpty = new ImageIcon();
+		Image img = new ImageIcon(Home.class.getResource("/images/table_empty.png")).getImage();
+		iconEmpty = new ImageIcon(img);
+		lblTable.setIcon(iconEmpty);
+		panel_2.add(lblTable);
 		
-		JButton btnTable3 = new JButton("B\u00E0n 3");
-		btnTable3.setBounds(170, 11, 76, 59);
-		panel_2.add(btnTable3);
+		JTextPane txtpnBn = new JTextPane();
+		txtpnBn.setText("Bàn 2");
+		txtpnBn.setEditable(false);
+		txtpnBn.setBackground(SystemColor.menu);
+		txtpnBn.setBounds(113, 89, 39, 20);
+		panel_2.add(txtpnBn);
 		
-		JButton btnTable6 = new JButton("B\u00E0n 6");
-		btnTable6.setBounds(170, 81, 76, 59);
-		panel_2.add(btnTable6);
+		JLabel label = new JLabel("Table");
+		label.setBounds(95, 28, 65, 60);
+		label.setIcon(iconEmpty);
+		panel_2.add(label);
 		
-		JButton btnTable5 = new JButton("B\u00E0n 5");
-		btnTable5.setBounds(90, 81, 76, 59);
-		panel_2.add(btnTable5);
+		JTextPane txtpnBn_1 = new JTextPane();
+		txtpnBn_1.setText("Bàn 3");
+		txtpnBn_1.setEditable(false);
+		txtpnBn_1.setBackground(SystemColor.menu);
+		txtpnBn_1.setBounds(188, 89, 39, 20);
+		panel_2.add(txtpnBn_1);
 		
-		JButton btnTable4 = new JButton("B\u00E0n 4");
-		btnTable4.setBounds(10, 81, 76, 59);
-		panel_2.add(btnTable4);
+		JLabel label_1 = new JLabel("Table");
+		label_1.setBounds(170, 28, 65, 60);
+		label_1.setIcon(iconEmpty);
+		panel_2.add(label_1);
 		
-		JButton btnTable9 = new JButton("B\u00E0n 9");
-		btnTable9.setBounds(170, 151, 76, 59);
-		panel_2.add(btnTable9);
+		JTextPane textPane_2 = new JTextPane();
+		textPane_2.setText("Bàn 1");
+		textPane_2.setEditable(false);
+		textPane_2.setBackground(SystemColor.menu);
+		textPane_2.setBounds(41, 89, 39, 20);
+		panel_2.add(textPane_2);
 		
-		JButton btnTable8 = new JButton("B\u00E0n 8");
-		btnTable8.setBounds(90, 151, 76, 59);
-		panel_2.add(btnTable8);
+		JLabel label_2 = new JLabel("Table");
+		label_2.setBounds(20, 120, 65, 60);
+		label_2.setIcon(iconEmpty);
+		panel_2.add(label_2);
 		
-		JButton btnTable7 = new JButton("B\u00E0n 7");
-		btnTable7.setBounds(10, 151, 76, 59);
-		panel_2.add(btnTable7);
+		JTextPane txtpnBn_3 = new JTextPane();
+		txtpnBn_3.setText("Bàn 6");
+		txtpnBn_3.setEditable(false);
+		txtpnBn_3.setBackground(SystemColor.menu);
+		txtpnBn_3.setBounds(113, 181, 39, 20);
+		panel_2.add(txtpnBn_3);
 		
-		JButton btnTable12 = new JButton("B\u00E0n 12");
-		btnTable12.setBounds(170, 221, 76, 59);
-		panel_2.add(btnTable12);
+		JLabel label_3 = new JLabel("Table");
+		label_3.setBounds(95, 120, 65, 60);
+		label_3.setIcon(iconEmpty);
+		panel_2.add(label_3);
 		
-		JButton btnTable11 = new JButton("B\u00E0n 11");
-		btnTable11.setBounds(90, 221, 76, 59);
-		panel_2.add(btnTable11);
+		JTextPane txtpnBn_4 = new JTextPane();
+		txtpnBn_4.setText("Bàn 7");
+		txtpnBn_4.setEditable(false);
+		txtpnBn_4.setBackground(SystemColor.menu);
+		txtpnBn_4.setBounds(188, 181, 39, 20);
+		panel_2.add(txtpnBn_4);
 		
-		JButton btnTable10 = new JButton("B\u00E0n 10");
-		btnTable10.setBounds(10, 221, 76, 59);
-		panel_2.add(btnTable10);
-	}
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
+		JLabel label_4 = new JLabel("Table");
+		label_4.setBounds(170, 120, 65, 60);
+		label_4.setIcon(iconEmpty);
+		panel_2.add(label_4);
+		
+		JTextPane txtpnBn_2 = new JTextPane();
+		txtpnBn_2.setText("Bàn 5");
+		txtpnBn_2.setEditable(false);
+		txtpnBn_2.setBackground(SystemColor.menu);
+		txtpnBn_2.setBounds(41, 181, 39, 20);
+		panel_2.add(txtpnBn_2);
+		
+		JLabel label_5 = new JLabel("Table");
+		label_5.setBounds(245, 28, 65, 60);
+		label_5.setIcon(iconEmpty);
+		panel_2.add(label_5);
+		
+		JTextPane txtpnBn_5 = new JTextPane();
+		txtpnBn_5.setText("Bàn 4");
+		txtpnBn_5.setEditable(false);
+		txtpnBn_5.setBackground(SystemColor.menu);
+		txtpnBn_5.setBounds(263, 89, 39, 20);
+		panel_2.add(txtpnBn_5);
+		
+		JLabel label_6 = new JLabel("Table");
+		label_6.setBounds(245, 120, 65, 60);
+		label_6.setIcon(iconEmpty);
+		panel_2.add(label_6);
+		
+		JTextPane txtpnBn_6 = new JTextPane();
+		txtpnBn_6.setText("Bàn 8");
+		txtpnBn_6.setEditable(false);
+		txtpnBn_6.setBackground(SystemColor.menu);
+		txtpnBn_6.setBounds(263, 181, 39, 20);
+		panel_2.add(txtpnBn_6);
+		
+		JLabel label_7 = new JLabel("Table");
+		label_7.setBounds(20, 212, 65, 60);
+		label_7.setIcon(iconEmpty);
+		panel_2.add(label_7);
+		
+		JTextPane txtpnBn_7 = new JTextPane();
+		txtpnBn_7.setText("Bàn 9");
+		txtpnBn_7.setEditable(false);
+		txtpnBn_7.setBackground(SystemColor.menu);
+		txtpnBn_7.setBounds(41, 273, 39, 20);
+		panel_2.add(txtpnBn_7);
+		
+		JLabel label_8 = new JLabel("Table");
+		label_8.setBounds(95, 212, 65, 60);
+		label_8.setIcon(iconEmpty);
+		panel_2.add(label_8);
+		
+		JTextPane txtpnBn_8 = new JTextPane();
+		txtpnBn_8.setText("Bàn 10");
+		txtpnBn_8.setEditable(false);
+		txtpnBn_8.setBackground(SystemColor.menu);
+		txtpnBn_8.setBounds(113, 273, 39, 20);
+		panel_2.add(txtpnBn_8);
+		
+		JLabel label_9 = new JLabel("Table");
+		label_9.setBounds(170, 212, 65, 60);
+		label_9.setIcon(iconEmpty);
+		panel_2.add(label_9);
+		
+		JTextPane txtpnBn_9 = new JTextPane();
+		txtpnBn_9.setText("Bàn 11");
+		txtpnBn_9.setEditable(false);
+		txtpnBn_9.setBackground(SystemColor.menu);
+		txtpnBn_9.setBounds(188, 273, 39, 20);
+		panel_2.add(txtpnBn_9);
+		
+		JLabel label_10 = new JLabel("Table");
+		label_10.setBounds(245, 212, 65, 60);
+		label_10.setIcon(iconEmpty);
+		panel_2.add(label_10);
+		
+		JTextPane txtpnBn_10 = new JTextPane();
+		txtpnBn_10.setText("Bàn 12");
+		txtpnBn_10.setEditable(false);
+		txtpnBn_10.setBackground(SystemColor.menu);
+		txtpnBn_10.setBounds(263, 273, 39, 20);
+		panel_2.add(txtpnBn_10);
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		 SwingUtilities.updateComponentTreeUI(this);
 	}
 }

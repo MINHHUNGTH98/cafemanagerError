@@ -12,10 +12,15 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 public class Login extends JFrame{
 	public Login() {
+		setTitle("CafeManager");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 282, 283);
 		this.setLocationRelativeTo(null);
@@ -65,7 +70,7 @@ public class Login extends JFrame{
 			public void mouseClicked(MouseEvent e) {
 				Home home = new Home();
 				home.setVisible(true);
-				Login.this.setVisible(false);
+				Login.this.dispose();
 			}
 		});
 		btnLogin.setFont(new Font("Times New Roman", Font.PLAIN, 12));
@@ -82,5 +87,21 @@ public class Login extends JFrame{
 		btnExit.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		btnExit.setBounds(87, 185, 89, 23);
 		contentPane.add(btnExit);
+		 try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		 SwingUtilities.updateComponentTreeUI(this);
 	}
 }
