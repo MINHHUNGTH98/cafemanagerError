@@ -2,12 +2,16 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -16,6 +20,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+
+import controller.LoginController;
 
 public class Login extends JFrame{
 	public Login() {
@@ -68,9 +74,22 @@ public class Login extends JFrame{
 		btnLogin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Home home = new Home();
-				home.setVisible(true);
-				Login.this.dispose();
+				LoginController lc = new LoginController();
+				try {
+					if (lc.checkAccount(tfAccount.getText(), passwordField.getText())) {
+						Home home = new Home();
+						home.setVisible(true);
+						Login.this.dispose();						
+					} else {
+						JOptionPane.showMessageDialog(null, "Tên đăng nhập hoặc mật khẩu sai!!!");
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnLogin.setFont(new Font("Times New Roman", Font.PLAIN, 12));
