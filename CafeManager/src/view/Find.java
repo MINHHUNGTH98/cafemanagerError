@@ -462,30 +462,7 @@ public class Find extends javax.swing.JFrame {
         // TODO add your handling code here:
         SearchController sc = new SearchController();
         String keyword = tfFindBill.getText();
-//        loadDataBill();
-        try {
-            ResultSet rs1 = sc.SearchBillUserStaff(keyword);
-            Vector data = null;
-            tbnBill.setRowCount(0);
-            if (rs1 != null) {
-                while (rs1.next()) {
-                    data = new Vector();
-                    data.add(rs1.getString("id"));
-                    data.add(rs1.getString("DateCheckIn"));
-                    data.add(rs1.getString("DateCheckOut"));
-                    data.add(rs1.getString("idTable"));
-                    data.add(rs1.getString("status"));
-                    data.add(rs1.getString("discount"));
-                    data.add(rs1.getString("totalPrice"));
-                    data.add(rs1.getString("userStaff"));
-                    // Thêm một dòng vào table model
-                    tbnBill.addRow(data);
-                }
-            }
-            tbBill.setModel(tbnBill);
-        } catch (Exception ex) {
-            Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        sc.SearchBillUserStaff(keyword, tbnBill, tbBill);
     }//GEN-LAST:event_btnFindBillActionPerformed
 
     /**
