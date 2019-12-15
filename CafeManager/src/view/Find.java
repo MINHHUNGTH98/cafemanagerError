@@ -39,7 +39,7 @@ public class Find extends javax.swing.JFrame {
     FoodController fc = new FoodController();
     BillController bc = new BillController();
 
-    public Find() {        
+    public Find() {
         initComponents();
         fc.loadData(tbnFood, tbFood, txtIdFood, tfUnitFood, tfNameFood, cbCategory);
         fc.loadComobox(cbCategory);
@@ -416,42 +416,10 @@ public class Find extends javax.swing.JFrame {
         SearchController sc = new SearchController();
         String keyword = tfFind.getText();
         String NameCategory = cbCategory.getSelectedItem().toString();
-        try {
-            ResultSet rs1 = sc.SearchFoodName(keyword);
-            ResultSet rs2 = sc.SearchFoodCategory(NameCategory);
-            Vector data = null;
-            tbnFood.setRowCount(0);
-            if (rs1 != null) {
-                while (rs1.next()) {
-                    data = new Vector();
-                    data.add(rs1.getString("id"));
-                    data.add(rs1.getString("name"));
-                    data.add(rs1.getString("price"));
-                    // Thêm một dòng vào table model
-                    tbnFood.addRow(data);
-                }
-                while (rs2.next()) {
-                    data = new Vector();
-                    data.add(rs2.getString("id"));
-                    data.add(rs2.getString("name"));
-                    data.add(rs2.getString("price"));
-                    // Thêm một dòng vào table model
-                    tbnFood.addRow(data);
-                }
-            } else {
-                while (rs2.next()) {
-                    data = new Vector();
-                    data.add(rs2.getString("id"));
-                    data.add(rs2.getString("name"));
-                    data.add(rs2.getString("price"));
-                    // Thêm một dòng vào table model
-                    tbnFood.addRow(data);
-                }
-            }
-            tbFood.setModel(tbnFood);
-        } catch (Exception ex) {
-            Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if (keyword.equals("")) {
+            sc.SearchFoodCategory(NameCategory, tbnFood, tbFood);
+        }else
+            sc.SearchFoodName(keyword, tbnFood, tbFood);
     }//GEN-LAST:event_btnFindActionPerformed
 
     private void btnAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFoodActionPerformed
@@ -495,7 +463,7 @@ public class Find extends javax.swing.JFrame {
         SearchController sc = new SearchController();
         String keyword = tfFindBill.getText();
 //        loadDataBill();
-        try {            
+        try {
             ResultSet rs1 = sc.SearchBillUserStaff(keyword);
             Vector data = null;
             tbnBill.setRowCount(0);
@@ -555,7 +523,6 @@ public class Find extends javax.swing.JFrame {
         });
     }
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddFood;
