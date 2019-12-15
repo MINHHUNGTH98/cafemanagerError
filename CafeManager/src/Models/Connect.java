@@ -20,7 +20,7 @@ public class Connect {
     private static String PASSWORD = "1";    
     private static Connection conn = null;
     
-    public static Connection getConnection() throws IOException {
+    public static Connection getConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
