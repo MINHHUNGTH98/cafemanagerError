@@ -43,6 +43,7 @@ public class SearchController {
                     data.add(rs.getString("id"));
                     data.add(rs.getString("name"));
                     data.add(rs.getString("price"));
+                    
                     // Thêm một dòng vào table model
                     tbnFood.addRow(data);
                 }
@@ -75,7 +76,6 @@ public class SearchController {
             if (NameCategory.equals("Sữa chua")) {
                 IDCategory = "5";
             }
-
             String sql = "select * from Food";
             if (IDCategory.length() > 0) {
                 sql = sql + " where idCategory like '%" + IDCategory + "%'";
@@ -93,6 +93,7 @@ public class SearchController {
                     data.add(rs.getString("id"));
                     data.add(rs.getString("name"));
                     data.add(rs.getString("price"));
+                    data.add(rs.getString("name"));
                     // Thêm một dòng vào table model
                     tbnFood.addRow(data);
                 }
@@ -104,7 +105,7 @@ public class SearchController {
             Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public ResultSet SearchBillUserStaff(String keyword) {
+    public void SearchBillUserStaff(String keyword, DefaultTableModel tbnBill, JTable tbBill) {
         ResultSet rs = null;
         try {
             Statement statement = Connect.getConnection().createStatement();
@@ -116,7 +117,28 @@ public class SearchController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return rs;
+        try {
+            Vector data = null;
+            tbnBill.setRowCount(0);
+            if (rs != null) {
+                while (rs.next()) {
+                    data = new Vector();
+                    data.add(rs.getString("id"));
+                    data.add(rs.getString("DateCheckIn"));
+                    data.add(rs.getString("DateCheckOut"));
+                    data.add(rs.getString("idTable"));
+                    data.add(rs.getString("status"));
+                    data.add(rs.getString("discount"));
+                    data.add(rs.getString("totalPrice"));
+                    data.add(rs.getString("userStaff"));
+                    // Thêm một dòng vào table model
+                    tbnBill.addRow(data);
+                }
+            }
+            tbBill.setModel(tbnBill);
+        } catch (Exception ex) {
+            Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
