@@ -6,10 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import Models.Connect;
-import java.sql.Connection;
+import Models.Food;
 import java.sql.PreparedStatement;
 import java.sql.ResultSetMetaData;
+import java.util.ArrayList;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -50,6 +53,8 @@ public class FoodController {
         } catch (SQLException ex) {
             System.out.println(ex.toString());
             return 0;
+        } finally {
+            Connect.close();
         }
     }
 
@@ -80,6 +85,8 @@ public class FoodController {
 
         } catch (Exception ex) {
             System.out.println(ex.toString());
+        } finally {
+            Connect.close();
         }
     }
 
@@ -90,6 +97,8 @@ public class FoodController {
             prestatement.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex.toString());
+        } finally {
+            Connect.close();
         }
     }
 
@@ -102,6 +111,8 @@ public class FoodController {
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
+        } finally {
+            Connect.close();
         }
     }
 
@@ -142,7 +153,48 @@ public class FoodController {
             });
         } catch (Exception ex) {
             System.out.println(ex.toString());
+        } finally {
+            Connect.close();
         }
+    }
 
+    public static ArrayList<Food> getListFoodByIdCategory(int idCategory) throws SQLException {
+        ArrayList<Food> arrayList = new ArrayList<Food>();
+        Statement statement = Connect.getConnection().createStatement();
+        String sql = "select * from Food where idCategory = " + idCategory;
+        ResultSet resultSet = statement.executeQuery(sql);
+        try {
+            while (resultSet.next()) {
+                int idFood = resultSet.getInt(1);
+                String foodName = resultSet.getString(2);
+                int price = resultSet.getInt(4);
+                Food food = new Food(idFood, foodName, idCategory, price);
+                arrayList.add(food);
+            };
+        } finally {
+            Connect.close();
+        }
+        return arrayList;
+    }
+
+    public static ArrayList<Food> getNameAndPriceFoodByIdFood(int idFood) {
+        ArrayList<Food> arrayList = null;
+        try {
+            arrayList = new ArrayList<Food>();
+            Statement statement = Connect.getConnection().createStatement();
+            String sql = "select name, price from Food where id = " + idFood;
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                String name = resultSet.getString(1);
+                int price = resultSet.getInt(2);
+                Food food = new Food(idFood, "", 0, price);
+                arrayList.add(food);
+            };
+        } catch (SQLException ex) {
+            Logger.getLogger(FoodController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            Connect.close();
+        }
+        return arrayList;
     }
 }
