@@ -5,6 +5,24 @@
  */
 package view;
 
+import Models.Connect;
+import controller.FoodController;
+import controller.SearchController;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Admin
@@ -14,8 +32,15 @@ public class Find extends javax.swing.JFrame {
     /**
      * Creates new form Find
      */
+    DefaultTableModel tbnFood = new DefaultTableModel();
+    DefaultTableModel tbnBill = new DefaultTableModel();
+    DefaultTableModel tbn_new = new DefaultTableModel();
+
     public Find() {
         initComponents();
+        loadData();
+        loadComobox();
+        loadDataBill();
     }
 
     /**
@@ -81,6 +106,11 @@ public class Find extends javax.swing.JFrame {
         btnFind.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         btnFind.setText("Tìm");
         btnFind.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 204)));
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindActionPerformed(evt);
+            }
+        });
 
         txtIdFood.setEditable(false);
         txtIdFood.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
@@ -104,7 +134,11 @@ public class Find extends javax.swing.JFrame {
             }
         });
 
-        cbCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCategoryActionPerformed(evt);
+            }
+        });
 
         txtpnId.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         txtpnId.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -143,21 +177,41 @@ public class Find extends javax.swing.JFrame {
         btnAddFood.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         btnAddFood.setText("Thêm món");
         btnAddFood.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 204)));
+        btnAddFood.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddFoodActionPerformed(evt);
+            }
+        });
 
         btnEditFood.setBackground(new java.awt.Color(0, 255, 204));
         btnEditFood.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         btnEditFood.setText("Sửa món");
         btnEditFood.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 204)));
+        btnEditFood.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditFoodActionPerformed(evt);
+            }
+        });
 
         btnDeleteFood.setBackground(new java.awt.Color(0, 255, 204));
         btnDeleteFood.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         btnDeleteFood.setText("Xóa món");
         btnDeleteFood.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 204)));
+        btnDeleteFood.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteFoodActionPerformed(evt);
+            }
+        });
 
         btnRefresh.setBackground(new java.awt.Color(0, 255, 204));
         btnRefresh.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         btnRefresh.setText("Làm mới");
         btnRefresh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 204)));
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
@@ -174,9 +228,9 @@ public class Find extends javax.swing.JFrame {
                         .addComponent(btnDeleteFood, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(329, Short.MAX_VALUE))
+                        .addContainerGap(327, Short.MAX_VALUE))
                     .addGroup(panelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
@@ -187,7 +241,7 @@ public class Find extends javax.swing.JFrame {
                                 .addComponent(txtpnId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtIdFood, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelLayout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
                                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtpnTn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtpnDanhMc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -227,9 +281,9 @@ public class Find extends javax.swing.JFrame {
                             .addComponent(cbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtpnDanhMc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfUnitFood, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtpnnGi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtpnnGi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfUnitFood, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -265,6 +319,11 @@ public class Find extends javax.swing.JFrame {
         btnFindBill.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         btnFindBill.setText("Tìm");
         btnFindBill.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 204)));
+        btnFindBill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindBillActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_1Layout = new javax.swing.GroupLayout(panel_1);
         panel_1.setLayout(panel_1Layout);
@@ -334,6 +393,132 @@ public class Find extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfFindBillActionPerformed
 
+    private void cbCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCategoryActionPerformed
+
+    private void btnEditFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditFoodActionPerformed
+        // TODO add your handling code here:
+        FoodController fc = new FoodController();
+        String FoodName = tfNameFood.getText();
+        String Id = txtIdFood.getText();
+        String Price = tfUnitFood.getText();
+        String NameCategory = cbCategory.getSelectedItem().toString();
+        fc.EditFood(Id, FoodName, NameCategory, Price);
+        tbnFood.setRowCount(0);
+        loadData();
+    }//GEN-LAST:event_btnEditFoodActionPerformed
+
+    private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
+        // TODO add your handling code here:
+        SearchController sc = new SearchController();
+        String keyword = tfFind.getText();
+        String NameCategory = cbCategory.getSelectedItem().toString();
+        try {
+            ResultSet rs1 = sc.SearchFoodName(keyword);
+            ResultSet rs2 = sc.SearchFoodCategory(NameCategory);
+            Vector data = null;
+            tbnFood.setRowCount(0);
+            if (rs1 != null) {
+                while (rs1.next()) {
+                    data = new Vector();
+                    data.add(rs1.getString("id"));
+                    data.add(rs1.getString("name"));
+                    data.add(rs1.getString("price"));
+                    // Thêm một dòng vào table model
+                    tbnFood.addRow(data);
+                }
+                while (rs2.next()) {
+                    data = new Vector();
+                    data.add(rs2.getString("id"));
+                    data.add(rs2.getString("name"));
+                    data.add(rs2.getString("price"));
+                    // Thêm một dòng vào table model
+                    tbnFood.addRow(data);
+                }
+            } else {
+                while (rs2.next()) {
+                    data = new Vector();
+                    data.add(rs2.getString("id"));
+                    data.add(rs2.getString("name"));
+                    data.add(rs2.getString("price"));
+                    // Thêm một dòng vào table model
+                    tbnFood.addRow(data);
+                }
+            }
+            tbFood.setModel(tbnFood);
+        } catch (Exception ex) {
+            Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnFindActionPerformed
+
+    private void btnAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFoodActionPerformed
+        // TODO add your handling code here:
+        FoodController fc = new FoodController();
+        String FoodName = tfNameFood.getText();
+        String Price = tfUnitFood.getText();
+        String NameCategory = cbCategory.getSelectedItem().toString();
+        int check = fc.AddFood(FoodName, NameCategory, Price);
+        if (check > 0) {
+            JOptionPane.showMessageDialog(this, "Thêm thành công");
+            tbnFood.setRowCount(0);
+            loadData();
+        } else {
+            JOptionPane.showMessageDialog(this, "Kiểm tra nhập đầy đủ thông tin");
+        }
+    }//GEN-LAST:event_btnAddFoodActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        tbnFood = tbn_new;
+        loadData();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void btnDeleteFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteFoodActionPerformed
+        // TODO add your handling code here:
+        FoodController fc = new FoodController();
+        try {
+            String Id = tbFood.getValueAt(tbFood.getSelectedRow(), 0).toString();
+            if (JOptionPane.showConfirmDialog(this, "Xóa món ăn?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                fc.DeleteFood(Id);
+                tbnFood.setRowCount(0);
+                loadData();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Chưa chọn món ăn cần xóa !");
+        }
+    }//GEN-LAST:event_btnDeleteFoodActionPerformed
+
+    private void btnFindBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindBillActionPerformed
+        // TODO add your handling code here:
+        SearchController sc = new SearchController();
+        String keyword = tfFindBill.getText();
+//        loadDataBill();
+        try {            
+            ResultSet rs1 = sc.SearchBillUserStaff(keyword);
+            Vector data = null;
+            tbnBill.setRowCount(0);
+            if (rs1 != null) {
+                while (rs1.next()) {
+                    data = new Vector();
+                    data.add(rs1.getString("id"));
+                    data.add(rs1.getString("DateCheckIn"));
+                    data.add(rs1.getString("DateCheckOut"));
+                    data.add(rs1.getString("idTable"));
+                    data.add(rs1.getString("status"));
+                    data.add(rs1.getString("discount"));
+                    data.add(rs1.getString("totalPrice"));
+                    data.add(rs1.getString("userStaff"));
+                    // Thêm một dòng vào table model
+                    tbnBill.addRow(data);
+                }
+            }
+            tbBill.setModel(tbnBill);
+        } catch (Exception ex) {
+            Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnFindBillActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -367,6 +552,87 @@ public class Find extends javax.swing.JFrame {
                 new Find().setVisible(true);
             }
         });
+    }
+
+    public void loadData() {
+        try {
+            int number;
+            Vector row, column;
+            column = new Vector();
+            Statement statement = Connect.getConnection().createStatement();
+            ResultSet rs = statement.executeQuery("SELECT Food.id, Food.name,food.price,FoodCategory.name FROM Food, FoodCategory WHERE Food.idCategory = FoodCategory.id;");
+            ResultSetMetaData metadata = rs.getMetaData();
+            number = metadata.getColumnCount();
+
+            for (int i = 1; i <= number; i++) {
+                column.add(metadata.getColumnName(i));
+            }
+            tbnFood.setColumnIdentifiers(column);
+
+            while (rs.next()) {
+                row = new Vector();
+                for (int i = 1; i <= number; i++) {
+                    row.addElement(rs.getString(i));
+                }
+                tbnFood.addRow(row);
+                tbFood.setModel(tbnFood);
+            }
+
+            tbFood.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    if (tbFood.getSelectedRow() >= 0) {
+                        txtIdFood.setText(tbFood.getValueAt(tbFood.getSelectedRow(), 0) + "");
+                        tfNameFood.setText(tbFood.getValueAt(tbFood.getSelectedRow(), 1) + "");
+                        tfUnitFood.setText(tbFood.getValueAt(tbFood.getSelectedRow(), 2) + "");
+                        cbCategory.setSelectedItem(tbFood.getModel().getValueAt(tbFood.getSelectedRow(), 3) + "");
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+
+    }
+
+    public void loadComobox() {
+        try {
+            PreparedStatement ps = Connect.getConnection().prepareStatement("Select name from FoodCategory ");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                cbCategory.addItem(rs.getString("name"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }
+    public void loadDataBill() {
+        try {
+            int number;
+            Vector row, column;
+            column = new Vector();
+            Statement statement = Connect.getConnection().createStatement();
+            ResultSet rs = statement.executeQuery("Select * From Bill ");
+            ResultSetMetaData metadata = rs.getMetaData();
+            number = metadata.getColumnCount();
+
+            for (int i = 1; i <= number; i++) {
+                column.add(metadata.getColumnName(i));
+            }
+            tbnBill.setColumnIdentifiers(column);
+
+            while (rs.next()) {
+                row = new Vector();
+                for (int i = 1; i <= number; i++) {
+                    row.addElement(rs.getString(i));
+                }
+                tbnBill.addRow(row);
+                tbBill.setModel(tbnBill);
+            }                  
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
