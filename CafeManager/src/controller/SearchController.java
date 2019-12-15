@@ -21,14 +21,14 @@ import view.Find;
  * @author tranm
  */
 public class SearchController {
-    
-    public void SearchFoodName(String keyword, DefaultTableModel tbnFood, JTable tbFood)  {
+
+    public void SearchFoodName(String keyword, DefaultTableModel tbnFood, JTable tbFood) {
         ResultSet rs = null;
         try {
             Statement statement = Connect.getConnection().createStatement();
             String sql = "select * from Food";
             if (keyword.length() > 0) {
-                sql = sql + " where name like '%" + keyword + "%'";
+                sql = sql + " where name like N'%" + keyword + "%'";
                 rs = statement.executeQuery(sql);
             }
         } catch (Exception e) {
@@ -43,13 +43,29 @@ public class SearchController {
                     data.add(rs.getString("id"));
                     data.add(rs.getString("name"));
                     data.add(rs.getString("price"));
-                    
+                    String IDCategory = rs.getString("idCategory");
+                    if (IDCategory.equals("1")) {
+                        data.add("Cà phê");
+                    }
+                    if (IDCategory.equals("2")) {
+                        data.add("Sinh tố");
+                    }
+                    if (IDCategory.equals("3")) {
+                        data.add("Nước ép");
+                    }
+                    if (IDCategory.equals("4")) {
+                        data.add("Đá xay");
+                    }
+                    if (IDCategory.equals("5")) {
+                        data.add("Sữa chua");
+                    }
+
                     // Thêm một dòng vào table model
                     tbnFood.addRow(data);
                 }
             } else {
                 ;
-                }            
+            }
             tbFood.setModel(tbnFood);
         } catch (Exception ex) {
             Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
@@ -78,7 +94,7 @@ public class SearchController {
             }
             String sql = "select * from Food";
             if (IDCategory.length() > 0) {
-                sql = sql + " where idCategory like '%" + IDCategory + "%'";
+                sql = sql + " where idCategory like N'%" + IDCategory + "%'";
                 rs = statement.executeQuery(sql);
             }
         } catch (Exception e) {
@@ -93,25 +109,41 @@ public class SearchController {
                     data.add(rs.getString("id"));
                     data.add(rs.getString("name"));
                     data.add(rs.getString("price"));
-                    data.add(rs.getString("name"));
+                    String IDCategory = rs.getString("idCategory");
+                    if (IDCategory.equals("1")) {
+                        data.add("Cà phê");
+                    }
+                    if (IDCategory.equals("2")) {
+                        data.add("Sinh tố");
+                    }
+                    if (IDCategory.equals("3")) {
+                        data.add("Nước ép");
+                    }
+                    if (IDCategory.equals("4")) {
+                        data.add("Đá xay");
+                    }
+                    if (IDCategory.equals("5")) {
+                        data.add("Sữa chua");
+                    }
                     // Thêm một dòng vào table model
                     tbnFood.addRow(data);
                 }
             } else {
                 ;
-                }            
+            }
             tbFood.setModel(tbnFood);
         } catch (Exception ex) {
             Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public void SearchBillUserStaff(String keyword, DefaultTableModel tbnBill, JTable tbBill) {
         ResultSet rs = null;
         try {
             Statement statement = Connect.getConnection().createStatement();
             String sql = "select * from Bill";
             if (keyword.length() > 0) {
-                sql = sql + " where userStaff like '%" + keyword + "%'";
+                sql = sql + " where userStaff like N'%" + keyword + "%'";
                 rs = statement.executeQuery(sql);
             }
         } catch (Exception e) {
@@ -140,6 +172,5 @@ public class SearchController {
             Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
 }
