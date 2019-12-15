@@ -1,34 +1,88 @@
 package controller;
 
-import java.awt.List;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import Models.Connect;
-import Models.Food;
-import Models.FoodCategory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 public class FoodController {
-	public static ArrayList<Food> getListFoodByIdCategory(int idCategory) throws SQLException, IOException {
-		ArrayList<Food> arrayList = new ArrayList<Food>();
-		Statement statement = Connect.getConnection().createStatement();
-		String sql = "select * from Food where idCategory = " + idCategory;
-		System.out.println(sql);
-		ResultSet resultSet = statement.executeQuery(sql);
-		try {
-			while (resultSet.next()) {
-				int idFood = resultSet.getInt(1);
-				String foodName = resultSet.getString(2);
-				int price = resultSet.getInt(4);
-				Food food = new Food(idFood, foodName, idCategory, price);
-				arrayList.add(food);
-			};
-		} finally {
-			Connect.close();
-		}
-		return arrayList;		
-	}
+
+    public int AddFood(String FoodName, String NameCategory, String Price) {
+        try {
+            if (FoodName.equals("") || Price.equals("")) {
+                return 0;
+            } else {
+                String IDCategory = null;
+                if (NameCategory.equals("Cà phê")) {
+                    IDCategory = "1";
+                }
+                if (NameCategory.equals("Sinh tố")) {
+                    IDCategory = "2";
+                }
+                if (NameCategory.equals("Nước ép")) {
+                    IDCategory = "3";
+                }
+                if (NameCategory.equals("Đá xay")) {
+                    IDCategory = "4";
+                }
+                if (NameCategory.equals("Sữa chua")) {
+                    IDCategory = "5";
+                }
+                PreparedStatement prestatement = Connect.getConnection().prepareStatement("insert dbo.Food (name, idCategory, price) values(?,?,?)");
+                prestatement.setString(1, FoodName);
+                prestatement.setString(2, IDCategory);
+                prestatement.setString(3, Price);
+                int check = prestatement.executeUpdate();
+                return check;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+            return 0;
+        }
+    }
+
+    public void EditFood(String Id, String FoodName, String NameCategory, String Price) {
+        try {
+            String IDCategory = null;
+            if (NameCategory.equals("Cà phê")) {
+                IDCategory = "1";
+            }
+            if (NameCategory.equals("Sinh tố")) {
+                IDCategory = "2";
+            }
+            if (NameCategory.equals("Nước ép")) {
+                IDCategory = "3";
+            }
+            if (NameCategory.equals("Đá xay")) {
+                IDCategory = "4";
+            }
+            if (NameCategory.equals("Sữa chua")) {
+                IDCategory = "5";
+            }
+            PreparedStatement prestatement = Connect.getConnection().prepareStatement("update Food set name=?,idCategory=?,price=? where Id=?");
+            prestatement.setString(4, Id);
+            prestatement.setString(1, FoodName);
+            prestatement.setString(2, IDCategory);
+            prestatement.setString(3, Price);
+            prestatement.executeUpdate();
+
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+    }
+
+    public void DeleteFood(String Id) {
+        try {
+            PreparedStatement prestatement = Connect.getConnection().prepareStatement("Delete FROM Food where id=?");
+            prestatement.setString(1, Id);
+            prestatement.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+
+    }
 }
