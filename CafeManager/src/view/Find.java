@@ -6,6 +6,7 @@
 package view;
 
 import Models.Connect;
+import controller.BillController;
 import controller.FoodController;
 import controller.SearchController;
 import java.io.IOException;
@@ -35,12 +36,14 @@ public class Find extends javax.swing.JFrame {
     DefaultTableModel tbnFood = new DefaultTableModel();
     DefaultTableModel tbnBill = new DefaultTableModel();
     DefaultTableModel tbn_new = new DefaultTableModel();
+    FoodController fc = new FoodController();
+    BillController bc = new BillController();
 
-    public Find() {
+    public Find() {        
         initComponents();
-        loadData();
-        loadComobox();
-        loadDataBill();
+        fc.loadData(tbnFood, tbFood, txtIdFood, tfUnitFood, tfNameFood, cbCategory);
+        fc.loadComobox(cbCategory);
+        bc.loadDataBill(tbnBill, tbBill);
     }
 
     /**
@@ -399,14 +402,13 @@ public class Find extends javax.swing.JFrame {
 
     private void btnEditFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditFoodActionPerformed
         // TODO add your handling code here:
-        FoodController fc = new FoodController();
         String FoodName = tfNameFood.getText();
         String Id = txtIdFood.getText();
         String Price = tfUnitFood.getText();
         String NameCategory = cbCategory.getSelectedItem().toString();
         fc.EditFood(Id, FoodName, NameCategory, Price);
         tbnFood.setRowCount(0);
-        loadData();
+        fc.loadData(tbnFood, tbFood, txtIdFood, tfUnitFood, tfNameFood, cbCategory);
     }//GEN-LAST:event_btnEditFoodActionPerformed
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
@@ -462,7 +464,7 @@ public class Find extends javax.swing.JFrame {
         if (check > 0) {
             JOptionPane.showMessageDialog(this, "Thêm thành công");
             tbnFood.setRowCount(0);
-            loadData();
+            fc.loadData(tbnFood, tbFood, txtIdFood, tfUnitFood, tfNameFood, cbCategory);
         } else {
             JOptionPane.showMessageDialog(this, "Kiểm tra nhập đầy đủ thông tin");
         }
@@ -471,18 +473,17 @@ public class Find extends javax.swing.JFrame {
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
         tbnFood = tbn_new;
-        loadData();
+        fc.loadData(tbnFood, tbFood, txtIdFood, tfUnitFood, tfNameFood, cbCategory);
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnDeleteFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteFoodActionPerformed
         // TODO add your handling code here:
-        FoodController fc = new FoodController();
         try {
             String Id = tbFood.getValueAt(tbFood.getSelectedRow(), 0).toString();
             if (JOptionPane.showConfirmDialog(this, "Xóa món ăn?", "Cảnh báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 fc.DeleteFood(Id);
                 tbnFood.setRowCount(0);
-                loadData();
+                fc.loadData(tbnFood, tbFood, txtIdFood, tfUnitFood, tfNameFood, cbCategory);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Chưa chọn món ăn cần xóa !");
@@ -554,86 +555,7 @@ public class Find extends javax.swing.JFrame {
         });
     }
 
-    public void loadData() {
-        try {
-            int number;
-            Vector row, column;
-            column = new Vector();
-            Statement statement = Connect.getConnection().createStatement();
-            ResultSet rs = statement.executeQuery("SELECT Food.id, Food.name,food.price,FoodCategory.name FROM Food, FoodCategory WHERE Food.idCategory = FoodCategory.id;");
-            ResultSetMetaData metadata = rs.getMetaData();
-            number = metadata.getColumnCount();
-
-            for (int i = 1; i <= number; i++) {
-                column.add(metadata.getColumnName(i));
-            }
-            tbnFood.setColumnIdentifiers(column);
-
-            while (rs.next()) {
-                row = new Vector();
-                for (int i = 1; i <= number; i++) {
-                    row.addElement(rs.getString(i));
-                }
-                tbnFood.addRow(row);
-                tbFood.setModel(tbnFood);
-            }
-
-            tbFood.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                @Override
-                public void valueChanged(ListSelectionEvent e) {
-                    if (tbFood.getSelectedRow() >= 0) {
-                        txtIdFood.setText(tbFood.getValueAt(tbFood.getSelectedRow(), 0) + "");
-                        tfNameFood.setText(tbFood.getValueAt(tbFood.getSelectedRow(), 1) + "");
-                        tfUnitFood.setText(tbFood.getValueAt(tbFood.getSelectedRow(), 2) + "");
-                        cbCategory.setSelectedItem(tbFood.getModel().getValueAt(tbFood.getSelectedRow(), 3) + "");
-                    }
-                }
-            });
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-
-    }
-
-    public void loadComobox() {
-        try {
-            PreparedStatement ps = Connect.getConnection().prepareStatement("Select name from FoodCategory ");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                cbCategory.addItem(rs.getString("name"));
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.toString());
-        }
-    }
-    public void loadDataBill() {
-        try {
-            int number;
-            Vector row, column;
-            column = new Vector();
-            Statement statement = Connect.getConnection().createStatement();
-            ResultSet rs = statement.executeQuery("Select * From Bill ");
-            ResultSetMetaData metadata = rs.getMetaData();
-            number = metadata.getColumnCount();
-
-            for (int i = 1; i <= number; i++) {
-                column.add(metadata.getColumnName(i));
-            }
-            tbnBill.setColumnIdentifiers(column);
-
-            while (rs.next()) {
-                row = new Vector();
-                for (int i = 1; i <= number; i++) {
-                    row.addElement(rs.getString(i));
-                }
-                tbnBill.addRow(row);
-                tbBill.setModel(tbnBill);
-            }                  
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddFood;
