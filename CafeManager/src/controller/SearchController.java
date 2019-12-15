@@ -7,7 +7,14 @@ package controller;
 
 import Models.Connect;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import view.Find;
 
 /**
  *
@@ -15,22 +22,40 @@ import java.sql.Statement;
  */
 public class SearchController {
     
-    public ResultSet SearchFoodName(String keyword) {
-        ResultSet rs_name = null;
+    public void SearchFoodName(String keyword, DefaultTableModel tbnFood, JTable tbFood)  {
+        ResultSet rs = null;
         try {
             Statement statement = Connect.getConnection().createStatement();
             String sql = "select * from Food";
             if (keyword.length() > 0) {
                 sql = sql + " where name like '%" + keyword + "%'";
-                rs_name = statement.executeQuery(sql);
+                rs = statement.executeQuery(sql);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return rs_name;
+        try {
+            Vector data = null;
+            tbnFood.setRowCount(0);
+            if (rs != null) {
+                while (rs.next()) {
+                    data = new Vector();
+                    data.add(rs.getString("id"));
+                    data.add(rs.getString("name"));
+                    data.add(rs.getString("price"));
+                    // Thêm một dòng vào table model
+                    tbnFood.addRow(data);
+                }
+            } else {
+                ;
+                }            
+            tbFood.setModel(tbnFood);
+        } catch (Exception ex) {
+            Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public ResultSet SearchFoodCategory(String NameCategory) {
+    public void SearchFoodCategory(String NameCategory, DefaultTableModel tbnFood, JTable tbFood) {
         ResultSet rs = null;
         try {
             Statement statement = Connect.getConnection().createStatement();
@@ -59,7 +84,25 @@ public class SearchController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return rs;
+        try {
+            Vector data = null;
+            tbnFood.setRowCount(0);
+            if (rs != null) {
+                while (rs.next()) {
+                    data = new Vector();
+                    data.add(rs.getString("id"));
+                    data.add(rs.getString("name"));
+                    data.add(rs.getString("price"));
+                    // Thêm một dòng vào table model
+                    tbnFood.addRow(data);
+                }
+            } else {
+                ;
+                }            
+            tbFood.setModel(tbnFood);
+        } catch (Exception ex) {
+            Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public ResultSet SearchBillUserStaff(String keyword) {
         ResultSet rs = null;
