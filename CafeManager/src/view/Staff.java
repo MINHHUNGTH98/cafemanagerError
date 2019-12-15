@@ -1,142 +1,283 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package view;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.SystemColor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+/**
+ *
+ * @author qcuon
+ */
+public class Staff extends javax.swing.JFrame {
 
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
+    /**
+     * Creates new form Staff
+     */
+    public Staff() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+    }
 
-public class Staff extends JFrame {
-	public Staff() {
-		setBounds(100, 100, 414, 289);
-		this.setLocationRelativeTo(null);
-		JPanel contentPane = new JPanel();
-		contentPane.setBackground(Color.LIGHT_GRAY);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 398, 256);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JTextField textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField.setBounds(138, 81, 200, 20);
-		panel.add(textField);
-		textField.setColumns(10);
-		
-		JComponent textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		((JTextField) textField_1).setColumns(10);
-		textField_1.setBounds(138, 112, 200, 20);
-		panel.add(textField_1);
-		
-		JTextPane txtpnTnngNhp = new JTextPane();
-		txtpnTnngNhp.setEditable(false);
-		txtpnTnngNhp.setText("Tên đăng nhập:");
-		txtpnTnngNhp.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtpnTnngNhp.setBackground(SystemColor.menu);
-		txtpnTnngNhp.setBounds(10, 112, 98, 20);
-		panel.add(txtpnTnngNhp);
-		
-		JTextField textField_2 = new JTextField();
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField_2.setColumns(10);
-		textField_2.setBounds(138, 143, 200, 20);
-		panel.add(textField_2);
-		
-		JTextPane txtpnMtKhu = new JTextPane();
-		txtpnMtKhu.setEditable(false);
-		txtpnMtKhu.setText("Mật khẩu:");
-		txtpnMtKhu.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtpnMtKhu.setBackground(SystemColor.menu);
-		txtpnMtKhu.setBounds(10, 143, 98, 20);
-		panel.add(txtpnMtKhu);
-		
-		JTextField textField_3 = new JTextField();
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField_3.setColumns(10);
-		textField_3.setBounds(138, 174, 200, 20);
-		panel.add(textField_3);
-		
-		JTextPane txtpnLNgiQun = new JTextPane();
-		txtpnLNgiQun.setEditable(false);
-		txtpnLNgiQun.setText("Là người quản lý:");
-		txtpnLNgiQun.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtpnLNgiQun.setBackground(SystemColor.menu);
-		txtpnLNgiQun.setBounds(10, 174, 118, 20);
-		panel.add(txtpnLNgiQun);
-		
-		JTextField textField_4 = new JTextField();
-		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField_4.setColumns(10);
-		textField_4.setBounds(138, 51, 27, 20);
-		panel.add(textField_4);
-		
-		JTextPane txtpnMNhnVin = new JTextPane();
-		txtpnMNhnVin.setEditable(false);
-		txtpnMNhnVin.setText("Mã nhân viên:");
-		txtpnMNhnVin.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtpnMNhnVin.setBackground(SystemColor.menu);
-		txtpnMNhnVin.setBounds(10, 51, 98, 20);
-		panel.add(txtpnMNhnVin);
-		
-		JTextPane txtpnThngTinNhn = new JTextPane();
-		txtpnThngTinNhn.setEditable(false);
-		txtpnThngTinNhn.setFont(new Font("Tahoma", Font.BOLD, 16));
-		txtpnThngTinNhn.setBackground(UIManager.getColor("Panel.background"));
-		txtpnThngTinNhn.setText("Thông tin nhân viên");
-		txtpnThngTinNhn.setBounds(118, 11, 178, 29);
-		panel.add(txtpnThngTinNhn);
-		
-		JButton btnAddStaff = new JButton("Thêm");
-		btnAddStaff.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-			}
-		});
-		btnAddStaff.setBounds(39, 215, 89, 23);
-		panel.add(btnAddStaff);
-		
-		JButton btnUpdateStaff = new JButton("Cập nhật");
-		btnUpdateStaff.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-			}
-		});
-		btnUpdateStaff.setBounds(165, 215, 89, 23);
-		panel.add(btnUpdateStaff);
-		
-		JButton btnDeleteStaff = new JButton("Xóa");
-		btnDeleteStaff.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-			}
-		});
-		btnDeleteStaff.setBounds(287, 215, 89, 23);
-		panel.add(btnDeleteStaff);
-		
-		JTextPane txtpnTnNhnVin = new JTextPane();
-		txtpnTnNhnVin.setText("Tên nhân viên:");
-		txtpnTnNhnVin.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtpnTnNhnVin.setEditable(false);
-		txtpnTnNhnVin.setBackground(SystemColor.menu);
-		txtpnTnNhnVin.setBounds(10, 81, 98, 20);
-		panel.add(txtpnTnNhnVin);
-		
-		JButton btnFindStaff = new JButton("Tìm kiếm");
-		btnFindStaff.setBounds(249, 51, 89, 23);
-		panel.add(btnFindStaff);
-	}
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        tfIdStaff = new javax.swing.JTextField();
+        btnFindStaff = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        cbPower = new javax.swing.JComboBox<>();
+        btnAddStaff = new javax.swing.JButton();
+        btnUpdateStaff = new javax.swing.JButton();
+        btnDeleteStaff = new javax.swing.JButton();
+        tfIdStaff6 = new javax.swing.JTextField();
+        tfIdStaff7 = new javax.swing.JTextField();
+        tfIdStaff8 = new javax.swing.JTextField();
+        tfIdStaff9 = new javax.swing.JTextField();
+        tfIdStaff10 = new javax.swing.JTextField();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Thông tin nhân viên");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Mã nhân viên:");
+
+        btnFindStaff.setText("Tìm kiếm");
+        btnFindStaff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindStaffActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Tên nhân viên:");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Tên đăng nhập:");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Mật khẩu cũ:");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Mật khẩu mới:");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Mật khẩu cũ:");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Cấp quyền:");
+
+        cbPower.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân viên", "Quản lý" }));
+
+        btnAddStaff.setText("Thêm");
+        btnAddStaff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddStaffActionPerformed(evt);
+            }
+        });
+
+        btnUpdateStaff.setText("Cập nhật");
+        btnUpdateStaff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateStaffActionPerformed(evt);
+            }
+        });
+
+        btnDeleteStaff.setText("Xóa");
+        btnDeleteStaff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteStaffActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(107, 107, 107))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tfIdStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(82, 82, 82)
+                                .addComponent(btnFindStaff))
+                            .addComponent(tfIdStaff6, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(21, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnAddStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel8)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addComponent(btnUpdateStaff)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnDeleteStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbPower, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfIdStaff7, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfIdStaff8, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfIdStaff9, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfIdStaff10, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tfIdStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFindStaff))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(tfIdStaff6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tfIdStaff7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(tfIdStaff8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(tfIdStaff9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(tfIdStaff10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(cbPower, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddStaff)
+                    .addComponent(btnUpdateStaff)
+                    .addComponent(btnDeleteStaff))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnFindStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindStaffActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFindStaffActionPerformed
+
+    private void btnAddStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStaffActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddStaffActionPerformed
+
+    private void btnUpdateStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateStaffActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateStaffActionPerformed
+
+    private void btnDeleteStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteStaffActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteStaffActionPerformed
+
+    public void setPower(boolean isAdmin){
+        if (!isAdmin) {
+            tfIdStaff.setEnabled(false);
+            btnFindStaff.setEnabled(false);
+            btnAddStaff.setEnabled(false);
+            btnDeleteStaff.setEnabled(false);
+            cbPower.setEnabled(false);           
+        }
+    }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Staff().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddStaff;
+    private javax.swing.JButton btnDeleteStaff;
+    private javax.swing.JButton btnFindStaff;
+    private javax.swing.JButton btnUpdateStaff;
+    private javax.swing.JComboBox<String> cbPower;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JTextField tfIdStaff;
+    private javax.swing.JTextField tfIdStaff10;
+    private javax.swing.JTextField tfIdStaff6;
+    private javax.swing.JTextField tfIdStaff7;
+    private javax.swing.JTextField tfIdStaff8;
+    private javax.swing.JTextField tfIdStaff9;
+    // End of variables declaration//GEN-END:variables
 }
