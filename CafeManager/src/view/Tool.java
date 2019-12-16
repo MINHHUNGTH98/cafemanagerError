@@ -9,6 +9,7 @@ import Models.Connect;
 import controller.BillController;
 import controller.FoodController;
 import controller.SearchController;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,7 +40,7 @@ public class Tool extends javax.swing.JFrame {
     FoodController fc = new FoodController();
     BillController bc = new BillController();
 
-    public Tool() {        
+    public Tool() {
         initComponents();
         fc.loadData(tbnFood, tbFood, txtIdFood, tfUnitFood, tfNameFood, cbCategory);
         fc.loadComobox(cbCategory);
@@ -105,6 +106,11 @@ public class Tool extends javax.swing.JFrame {
                 tfFindActionPerformed(evt);
             }
         });
+        tfFind.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfFindKeyPressed(evt);
+            }
+        });
 
         btnFind.setBackground(new java.awt.Color(0, 255, 204));
         btnFind.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
@@ -113,6 +119,11 @@ public class Tool extends javax.swing.JFrame {
         btnFind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFindActionPerformed(evt);
+            }
+        });
+        btnFind.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnFindKeyPressed(evt);
             }
         });
 
@@ -318,6 +329,11 @@ public class Tool extends javax.swing.JFrame {
                 tfFindBillActionPerformed(evt);
             }
         });
+        tfFindBill.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfFindBillKeyPressed(evt);
+            }
+        });
 
         btnFindBill.setBackground(new java.awt.Color(0, 255, 204));
         btnFindBill.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
@@ -419,8 +435,9 @@ public class Tool extends javax.swing.JFrame {
         String NameCategory = cbCategory.getSelectedItem().toString();
         if (keyword.equals("")) {
             sc.SearchFoodCategory(NameCategory, tbnFood, tbFood);
-        }else
-            sc.SearchFoodName(keyword, tbnFood, tbFood);
+        } else {
+            sc.SearchFoodNameId(keyword, tbnFood, tbFood);
+        }
     }//GEN-LAST:event_btnFindActionPerformed
 
     private void btnAddFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFoodActionPerformed
@@ -441,7 +458,10 @@ public class Tool extends javax.swing.JFrame {
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
-        tbnFood = tbn_new;
+        int countRow = tbnFood.getRowCount();
+        for (int i = countRow - 1; i >= 0; i--) {
+            tbnFood.removeRow(i);
+        }
         fc.loadData(tbnFood, tbFood, txtIdFood, tfUnitFood, tfNameFood, cbCategory);
     }//GEN-LAST:event_btnRefreshActionPerformed
 
@@ -463,9 +483,35 @@ public class Tool extends javax.swing.JFrame {
         // TODO add your handling code here:
         SearchController sc = new SearchController();
         String keyword = tfFindBill.getText();
-//        loadDataBill();
-         sc.SearchBillUserStaff(keyword, tbnBill, tbBill);
+        sc.SearchBillUserStaff(keyword, tbnBill, tbBill);
     }//GEN-LAST:event_btnFindBillActionPerformed
+
+    private void btnFindKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFindKeyPressed
+
+    }//GEN-LAST:event_btnFindKeyPressed
+
+    private void tfFindKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfFindKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            SearchController sc = new SearchController();
+            String keyword = tfFind.getText();
+            String NameCategory = cbCategory.getSelectedItem().toString();
+            if (keyword.equals("")) {
+                sc.SearchFoodCategory(NameCategory, tbnFood, tbFood);
+            } else {
+                sc.SearchFoodNameId(keyword, tbnFood, tbFood);
+            }
+        }
+    }//GEN-LAST:event_tfFindKeyPressed
+
+    private void tfFindBillKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfFindBillKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            SearchController sc = new SearchController();
+            String keyword = tfFindBill.getText();
+            sc.SearchBillUserStaff(keyword, tbnBill, tbBill);
+        }
+    }//GEN-LAST:event_tfFindBillKeyPressed
 
     /**
      * @param args the command line arguments
@@ -503,7 +549,6 @@ public class Tool extends javax.swing.JFrame {
         });
     }
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddFood;
