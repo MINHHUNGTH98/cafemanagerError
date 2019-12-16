@@ -618,12 +618,13 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_cbCategoryItemStateChanged
 
     private void lbTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbTable1MouseClicked
-        Vector data = null;
-        DefaultTableModel dataModel = null;
+        Vector data = new Vector();
+        DefaultTableModel dataModel = new DefaultTableModel();
         ArrayList<BillInfo> listBillInfo = BillInfoController.getListBillInfoByIdTable(1);
-        ArrayList<Food> listFood = null;
+        ArrayList<Food> listFood = new ArrayList<>();
         for (int i = 0; i < listBillInfo.size(); i++) {
             listFood = FoodController.getNameAndPriceFoodByIdFood(listBillInfo.get(i).getIDFood());
+            System.out.println(listFood.get(0).getFoodName());
             data.add(listFood.get(0).getFoodName());
             int count = listBillInfo.get(i).getCount();
             data.add(count);
