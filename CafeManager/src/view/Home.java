@@ -591,7 +591,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        Tool stat = new Tool();
+        Stat stat = new Stat();
         stat.setVisible(true);
     }//GEN-LAST:event_jMenu2MouseClicked
 

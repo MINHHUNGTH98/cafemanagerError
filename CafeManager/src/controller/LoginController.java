@@ -8,7 +8,7 @@ import java.sql.Statement;
 import Models.Connect;
 
 public class LoginController {
-	public boolean checkAccount(String txtAccount, String txtPassword) throws SQLException, IOException {
+	public static boolean checkAccount(String txtAccount, String txtPassword) throws SQLException {
 		Statement statement = Connect.getConnection().createStatement();
 		String sql = "select * from account where UserName = \'" + txtAccount + "\' and PassWord = \'" + txtPassword + "\'";
 		ResultSet resultSet = statement.executeQuery(sql);

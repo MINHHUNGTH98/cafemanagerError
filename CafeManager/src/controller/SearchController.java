@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import view.Find;
+import view.Tool;
 
 /**
  *
@@ -68,7 +68,9 @@ public class SearchController {
             }
             tbFood.setModel(tbnFood);
         } catch (Exception ex) {
-            Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tool.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            Connect.close();
         }
     }
 
@@ -133,7 +135,9 @@ public class SearchController {
             }
             tbFood.setModel(tbnFood);
         } catch (Exception ex) {
-            Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tool.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            Connect.close();
         }
     }
 
@@ -169,7 +173,9 @@ public class SearchController {
             }
             tbBill.setModel(tbnBill);
         } catch (Exception ex) {
-            Logger.getLogger(Find.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tool.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            Connect.close();
         }
     }
 

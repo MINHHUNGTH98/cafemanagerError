@@ -9,6 +9,9 @@ import controller.LoginController;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -197,12 +200,16 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordFieldKeyPressed
 
     private void login() {
-        if (LoginController.checkAccount(tfAccount.getText(), passwordField.getText())) {
-            Home home = new Home();
-            home.setVisible(true);
-            Login.this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(null, "Tên đăng nhập hoặc mật khẩu sai!!!");
+        try {
+            if (LoginController.checkAccount(tfAccount.getText(), passwordField.getText())) {
+                Home home = new Home();
+                home.setVisible(true);
+                Login.this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Tên đăng nhập hoặc mật khẩu sai!!!");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

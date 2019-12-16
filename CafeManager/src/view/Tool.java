@@ -31,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
 public class Tool extends javax.swing.JFrame {
 
     /**
-     * Creates new form Tool
+     * Creates new form Find
      */
     DefaultTableModel tbnFood = new DefaultTableModel();
     DefaultTableModel tbnBill = new DefaultTableModel();
@@ -39,11 +39,12 @@ public class Tool extends javax.swing.JFrame {
     FoodController fc = new FoodController();
     BillController bc = new BillController();
 
-    public Tool() {
+    public Tool() {        
         initComponents();
         fc.loadData(tbnFood, tbFood, txtIdFood, tfUnitFood, tfNameFood, cbCategory);
         fc.loadComobox(cbCategory);
         bc.loadDataBill(tbnBill, tbBill);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -79,7 +80,7 @@ public class Tool extends javax.swing.JFrame {
         tfFindBill = new javax.swing.JTextField();
         btnFindBill = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         contentPane.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
 
@@ -462,7 +463,8 @@ public class Tool extends javax.swing.JFrame {
         // TODO add your handling code here:
         SearchController sc = new SearchController();
         String keyword = tfFindBill.getText();
-        sc.SearchBillUserStaff(keyword, tbnBill, tbBill);
+//        loadDataBill();
+         sc.SearchBillUserStaff(keyword, tbnBill, tbBill);
     }//GEN-LAST:event_btnFindBillActionPerformed
 
     /**
@@ -501,6 +503,7 @@ public class Tool extends javax.swing.JFrame {
         });
     }
 
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddFood;

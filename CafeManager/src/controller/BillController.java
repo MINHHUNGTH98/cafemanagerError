@@ -44,6 +44,8 @@ public class BillController {
             }
         } catch (Exception ex) {
             System.out.println(ex.toString());
+        } finally{
+            Connect.close();
         }
     }
 }

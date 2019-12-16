@@ -15,14 +15,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Connect {
-
-    private static String DB_URL = "jdbc:sqlserver://localhost:1434;"
+	private static String DB_URL = "jdbc:sqlserver://localhost:56431;"
             + "databaseName=QuanLyQuanCaffe;"
             + "integratedSecurity=true";
     private static String USER_NAME = "1";
-    private static String PASSWORD = "1";
+    private static String PASSWORD = "1";    
     private static Connection conn = null;
-
+    
     public static Connection getConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -34,12 +33,11 @@ public class Connect {
         }
         return conn;
     }
-
     public static void close() {
-        try {
-            conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
+            }
+	}
 }
