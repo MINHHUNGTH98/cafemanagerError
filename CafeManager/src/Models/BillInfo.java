@@ -10,39 +10,39 @@ package Models;
  * @author Datnv
  */
 public class BillInfo {
-    private String ID;
-    private String IDBill;
-    private String IDFood;
+    private int ID;
+    private int IDBill;
+    private int IDFood;
     private int Count;
 
-    public BillInfo(String ID, String IDBill, String IDFood, int Count) {
+    public BillInfo(int ID, int IDBill, int IDFood, int Count) {
         this.ID = ID;
         this.IDBill = IDBill;
         this.IDFood = IDFood;
         this.Count = Count;
     }
 
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(int ID) {
         this.ID = ID;
     }
 
-    public String getIDBill() {
+    public int getIDBill() {
         return IDBill;
     }
 
-    public void setIDBill(String IDBill) {
+    public void setIDBill(int IDBill) {
         this.IDBill = IDBill;
     }
 
-    public String getIDFood() {
+    public int getIDFood() {
         return IDFood;
     }
 
-    public void setIDFood(String IDFood) {
+    public void setIDFood(int IDFood) {
         this.IDFood = IDFood;
     }
 

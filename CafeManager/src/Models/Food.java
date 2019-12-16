@@ -12,10 +12,10 @@ package Models;
 public class Food {
     private int IDFood;
     private String FoodName;
-    private String IDCategory;
+    private int IDCategory;
     private int Price;
 
-    public Food(int IDFood, String FoodName, String IDCategory, int Price) {
+    public Food(int IDFood, String FoodName, int IDCategory, int Price) {
         this.IDFood = IDFood;
         this.FoodName = FoodName;
         this.IDCategory = IDCategory;
@@ -38,11 +38,11 @@ public class Food {
         this.FoodName = FoodName;
     }
 
-    public String getIDCategory() {
+    public int getIDCategory() {
         return IDCategory;
     }
 
-    public void setIDCategory(String IDCategory) {
+    public void setIDCategory(int IDCategory) {
         this.IDCategory = IDCategory;
     }
 

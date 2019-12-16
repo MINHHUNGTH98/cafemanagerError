@@ -10,11 +10,11 @@ package Models;
  * @author Datnv
  */
 public class TableFood {
-    private String IDTable;
+    private int IDTable;
     private String NameTable;
-    private String Status;
+    private int Status;
 
-    public TableFood(String IDTable, String NameTable, String Status) {
+    public TableFood(int IDTable, String NameTable, int Status) {
         this.IDTable = IDTable;
         this.NameTable = NameTable;
         this.Status = Status;
@@ -22,11 +22,11 @@ public class TableFood {
     
     
 
-    public String getIDTable() {
+    public int getIDTable() {
         return IDTable;
     }
 
-    public void setIDTable(String IDTable) {
+    public void setIDTable(int IDTable) {
         this.IDTable = IDTable;
     }
 
@@ -38,11 +38,11 @@ public class TableFood {
         this.NameTable = NameTable;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return Status;
     }
 
-    public void setStatus(String Status) {
+    public void setStatus(int Status) {
         this.Status = Status;
     }
 }
