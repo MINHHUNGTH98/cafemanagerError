@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class BillInfoController {
     public static ArrayList<BillInfo> getListBillInfoByIdTable(int idTable){
-        ArrayList<BillInfo> listBillInfo = null;
+        ArrayList<BillInfo> listBillInfo = new ArrayList<BillInfo>();
         try {
             Statement statement = Connect.getConnection().createStatement();
             String sql = "select id from Bill where idTable = " + idTable + " and status = 1";

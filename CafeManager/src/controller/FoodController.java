@@ -178,7 +178,7 @@ public class FoodController {
     }
 
     public static ArrayList<Food> getNameAndPriceFoodByIdFood(int idFood) {
-        ArrayList<Food> arrayList = null;
+        ArrayList<Food> arrayList = new ArrayList<Food>();
         try {
             arrayList = new ArrayList<Food>();
             Statement statement = Connect.getConnection().createStatement();
@@ -187,7 +187,9 @@ public class FoodController {
             while (resultSet.next()) {
                 String name = resultSet.getString(1);
                 int price = resultSet.getInt(2);
-                Food food = new Food(idFood, "", 0, price);
+                System.out.println("1"+name);
+                System.out.println("2"+price);
+                Food food = new Food(idFood, name, 0, price);
                 arrayList.add(food);
             };
         } catch (SQLException ex) {
