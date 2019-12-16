@@ -126,9 +126,11 @@ public class FoodController {
             ResultSetMetaData metadata = rs.getMetaData();
             number = metadata.getColumnCount();
 
-            for (int i = 1; i <= number; i++) {
-                column.add(metadata.getColumnName(i));
-            }
+            column.add("Mã món");
+            column.add("Tên món");
+            column.add("Đơn giá");
+            column.add("Loại món");
+            
             tbnFood.setColumnIdentifiers(column);
 
             while (rs.next()) {

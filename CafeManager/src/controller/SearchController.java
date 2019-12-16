@@ -22,13 +22,13 @@ import view.Tool;
  */
 public class SearchController {
 
-    public void SearchFoodName(String keyword, DefaultTableModel tbnFood, JTable tbFood) {
+    public void SearchFoodNameId(String keyword, DefaultTableModel tbnFood, JTable tbFood) {
         ResultSet rs = null;
         try {
             Statement statement = Connect.getConnection().createStatement();
             String sql = "select * from Food";
             if (keyword.length() > 0) {
-                sql = sql + " where name like N'%" + keyword + "%'";
+                sql = sql + " where name like N'%" + keyword + "%'or id like N'%" + keyword + "%'";
                 rs = statement.executeQuery(sql);
             }
         } catch (Exception e) {
@@ -59,7 +59,6 @@ public class SearchController {
                     if (IDCategory.equals("5")) {
                         data.add("Sữa chua");
                     }
-
                     // Thêm một dòng vào table model
                     tbnFood.addRow(data);
                 }
@@ -73,7 +72,7 @@ public class SearchController {
             Connect.close();
         }
     }
-
+    
     public void SearchFoodCategory(String NameCategory, DefaultTableModel tbnFood, JTable tbFood) {
         ResultSet rs = null;
         try {
@@ -147,7 +146,7 @@ public class SearchController {
             Statement statement = Connect.getConnection().createStatement();
             String sql = "select * from Bill";
             if (keyword.length() > 0) {
-                sql = sql + " where userStaff like N'%" + keyword + "%'";
+                sql = sql + " where userStaff like N'%" + keyword + "%'or id like N'%"+ keyword +"%'"  ;
                 rs = statement.executeQuery(sql);
             }
         } catch (Exception e) {
@@ -160,8 +159,9 @@ public class SearchController {
                 while (rs.next()) {
                     data = new Vector();
                     data.add(rs.getString("id"));
-                    data.add(rs.getString("DateCheckIn"));
-                    data.add(rs.getString("DateCheckOut"));
+                    data.add(rs.getString("DataCheck"));
+                    data.add(rs.getString("TimeCheckIn"));
+                    data.add(rs.getString("TimeCheckOut"));
                     data.add(rs.getString("idTable"));
                     data.add(rs.getString("status"));
                     data.add(rs.getString("discount"));

@@ -29,9 +29,15 @@ public class BillController {
             ResultSetMetaData metadata = rs.getMetaData();
             number = metadata.getColumnCount();
 
-            for (int i = 1; i <= number; i++) {
-                column.add(metadata.getColumnName(i));
-            }
+            column.add("Mã hóa đơn");
+            column.add("Ngày ");
+            column.add("Giờ vào");
+            column.add("Giờ ra");
+            column.add("Mã bàn");
+            column.add("Trạng thái");
+            column.add("Giảm giá");
+            column.add("Tổng tiền");
+            column.add("Nhân viên");
             tbnBill.setColumnIdentifiers(column);
 
             while (rs.next()) {
