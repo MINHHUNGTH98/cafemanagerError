@@ -4,8 +4,6 @@ GO
 USE QuanLyQuanCaffe
 GO
 
-select name from FoodCategory where name like '%xay%'
-
 CREATE TABLE TableFood
 (
 	id INT IDENTITY PRIMARY KEY,
@@ -83,6 +81,7 @@ VALUES  ( N'rwus' ,
 INSERT INTO dbo.Account
         ( UserName ,
           PassWord ,
+		  FullName ,
           Type
         )
 VALUES  ( N'huongcsm' , 
@@ -95,6 +94,7 @@ GO
 INSERT INTO dbo.Account
         ( UserName ,
           PassWord ,
+		  FullName ,
           Type
         )
 VALUES  ( N'minhhungth98' , 
@@ -146,4 +146,3 @@ VALUES  ( N'Cafe sữa đá', 1, 24000)
 INSERT dbo.Food
         ( name, idCategory, price )
 VALUES  ( N'Cafe sữa nóng', 1, 24000)
-
